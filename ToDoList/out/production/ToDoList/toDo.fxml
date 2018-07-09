@@ -18,11 +18,11 @@
         <Button fx:id="addButton" layoutX="19.0" layoutY="43.0" mnemonicParsing="false" onAction="#addTask" text="Add Task" />
         <Button fx:id="archiveButton" layoutX="23.0" layoutY="95.0" mnemonicParsing="false" onAction="#archiveTasks" text="Archive" />
         <Button fx:id="searchButton" layoutX="111.0" layoutY="95.0" mnemonicParsing="false" onAction="#searchTasks" text="Search" />
-        <TextField fx:id="descriptionForAdd" layoutX="310.0" layoutY="43.0" prefHeight="26.0" prefWidth="273.0" promptText="Type description here..." />
+        <TextField fx:id="descriptionForAdd" layoutX="310.0" layoutY="43.0" onAction="#addTask" prefHeight="26.0" prefWidth="273.0" promptText="Type description here..." />
         <DatePicker fx:id="datePicker" layoutX="111.0" layoutY="42.0" prefHeight="26.0" prefWidth="176.0" promptText="Select date here..." />
         <Button fx:id="listOverdueButton" layoutX="18.0" layoutY="510.0" mnemonicParsing="false" onAction="#showOverdue" text="List Overdue" />
         <Button fx:id="listDueTodayButton" layoutX="118.0" layoutY="510.0" mnemonicParsing="false" onAction="#showToday" text="List Due Today" />
-        <TextField fx:id="descriptionForSearch" layoutX="185.0" layoutY="94.0" prefHeight="26.0" prefWidth="398.0" promptText="Type key words here..." />
+        <TextField fx:id="descriptionForSearch" layoutX="185.0" layoutY="94.0" onAction="#searchTasks" prefHeight="26.0" prefWidth="398.0" promptText="Type key words here..." />
         <Separator layoutY="495.0" prefHeight="3.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="495.0" />
         <TableView fx:id="tableView" layoutX="14.0" layoutY="154.0" prefHeight="330.0" prefWidth="604.0">
             <columns>
