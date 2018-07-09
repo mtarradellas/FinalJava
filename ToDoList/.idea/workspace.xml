@@ -11,7 +11,77 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="906">
+              <caret line="205" column="5" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
+              <folding>
+                <element signature="method#archiveTasks#0;class#Controller#0" />
+                <element signature="method#searchTasks#0;class#Controller#0" />
+                <element signature="method#refresh#0;class#Controller#0" />
+                <element signature="method#showList#0;class#Controller#0" />
+                <element signature="method#changeTaskDescription#0;class#Controller#0" />
+                <element signature="method#saveFile#0;class#Controller#0" />
+                <element signature="method#loadFile#0;class#Controller#0" />
+                <element signature="method#loadFile#1;class#Controller#0" />
+                <element signature="method#saveFile#1;class#Controller#0" />
+                <element signature="method#errorAlert#0;class#Controller#0" />
+                <element signature="method#informationAlert#0;class#Controller#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ControllerEditPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ControllerEditPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="433">
+              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+              <folding>
+                <element signature="method#initTask#0;class#ControllerEditPanel#0" />
+                <element signature="method#deleteTask#0;class#ControllerEditPanel#0" />
+                <element signature="method#cancelEdit#0;class#ControllerEditPanel#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TaskManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="28">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+              <folding>
+                <element signature="method#TaskManager#0;class#TaskManager#0" />
+                <element signature="method#getOverdueList#0;class#TaskManager#0" />
+                <element signature="e#1126#1127#0" expanded="true" />
+                <element signature="e#1179#1180#0" expanded="true" />
+                <element signature="method#completeTask#0;class#TaskManager#0" />
+                <element signature="method#search#0;class#TaskManager#0" />
+                <element signature="method#printTasks#0;class#TaskManager#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Task.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding>
+                <element signature="method#Task#0;class#Task#0" />
+                <element signature="method#getDateFormat#0;class#Task#0" />
+                <element signature="method#equals#0;class#Task#0" />
+                <element signature="method#toString#0;class#Task#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -22,9 +92,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/Task.java" />
         <option value="$PROJECT_DIR$/src/TaskManager.java" />
+        <option value="$PROJECT_DIR$/src/MainClass.java" />
         <option value="$PROJECT_DIR$/src/ControllerEditPanel.java" />
         <option value="$PROJECT_DIR$/src/Controller.java" />
-        <option value="$PROJECT_DIR$/src/MainClass.java" />
       </list>
     </option>
   </component>
@@ -152,15 +222,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1531153410191</updated>
-      <workItem from="1531153411794" duration="6618000" />
+      <workItem from="1531153411794" duration="9545000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6618000" />
+    <option name="totallyTimeSpent" value="9545000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -168,15 +239,15 @@
       <window_info anchor="right" id="Palette&#9;" />
       <window_info id="Image Layers" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.5005208" side_tool="true" weight="0.32943678" />
       <window_info anchor="right" id="Maven Projects" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32943678" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.32943678" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19166666" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19166666" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -204,45 +275,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ControllerEditPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="method#initTask#0;class#ControllerEditPanel#0" />
-            <element signature="method#acceptEdit#0;class#ControllerEditPanel#0" />
-            <element signature="method#refresh#0;class#ControllerEditPanel#0" />
-            <element signature="method#deleteTask#0;class#ControllerEditPanel#0" />
-            <element signature="method#cancelEdit#0;class#ControllerEditPanel#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
-          <folding>
-            <element signature="class#1636:1838" />
-            <element signature="method#initialize#0;class#Controller#0" />
-            <element signature="method#addTask#0;class#Controller#0" />
-            <element signature="method#archiveTasks#0;class#Controller#0" />
-            <element signature="method#searchTasks#0;class#Controller#0" />
-            <element signature="method#refresh#0;class#Controller#0" />
-            <element signature="method#showList#0;class#Controller#0" />
-            <element signature="method#changeTaskDescription#0;class#Controller#0" />
-            <element signature="method#editTask#0;class#Controller#0" />
-            <element signature="method#getSelectedTask#0;class#Controller#0" />
-            <element signature="method#saveFile#0;class#Controller#0" />
-            <element signature="method#loadFile#0;class#Controller#0" />
-            <element signature="method#loadFile#1;class#Controller#0" />
-            <element signature="method#saveFile#1;class#Controller#0" />
-            <element signature="method#errorAlert#0;class#Controller#0" />
-            <element signature="method#informationAlert#0;class#Controller#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MainClass.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -250,14 +282,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/TaskDateComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/TaskManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
+        <state relative-caret-position="28">
           <caret line="18" selection-start-line="18" selection-end-line="18" />
           <folding>
             <element signature="method#TaskManager#0;class#TaskManager#0" />
             <element signature="method#getOverdueList#0;class#TaskManager#0" />
-            <element signature="method#getTodayList#0;class#TaskManager#0" />
+            <element signature="e#1126#1127#0" expanded="true" />
+            <element signature="e#1179#1180#0" expanded="true" />
             <element signature="method#completeTask#0;class#TaskManager#0" />
             <element signature="method#search#0;class#TaskManager#0" />
             <element signature="method#printTasks#0;class#TaskManager#0" />
@@ -278,10 +318,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TaskDateComparator.java">
+    <entry file="file://$PROJECT_DIR$/src/ControllerEditPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        <state relative-caret-position="433">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+          <folding>
+            <element signature="method#initTask#0;class#ControllerEditPanel#0" />
+            <element signature="method#deleteTask#0;class#ControllerEditPanel#0" />
+            <element signature="method#cancelEdit#0;class#ControllerEditPanel#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="906">
+          <caret line="205" column="5" selection-start-line="205" selection-start-column="5" selection-end-line="205" selection-end-column="5" />
+          <folding>
+            <element signature="method#archiveTasks#0;class#Controller#0" />
+            <element signature="method#searchTasks#0;class#Controller#0" />
+            <element signature="method#refresh#0;class#Controller#0" />
+            <element signature="method#showList#0;class#Controller#0" />
+            <element signature="method#changeTaskDescription#0;class#Controller#0" />
+            <element signature="method#saveFile#0;class#Controller#0" />
+            <element signature="method#loadFile#0;class#Controller#0" />
+            <element signature="method#loadFile#1;class#Controller#0" />
+            <element signature="method#saveFile#1;class#Controller#0" />
+            <element signature="method#errorAlert#0;class#Controller#0" />
+            <element signature="method#informationAlert#0;class#Controller#0" />
+          </folding>
         </state>
       </provider>
     </entry>

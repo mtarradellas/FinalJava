@@ -2,9 +2,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -59,6 +58,16 @@ public class ControllerEditPanel implements Initializable {
         String newDescription = editDescriptionField.getText();
         if (completedCheckBox.isSelected()) complete();
         if (!newDescription.trim().isEmpty()) task.description = newDescription;
+        else {
+            if (!newDescription.isEmpty()) {
+                Alert a = new Alert(Alert.AlertType.INFORMATION, "Description cannot be empty");
+                a.setTitle("Error");
+                a.setHeaderText("Description will remain unaltered");
+                Button okButton = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+                okButton.setText("Accept");
+                a.show();
+            }
+        }
         if (noDateCheckBox.isSelected()) task.date = null;
         else {
             LocalDate newDate = editDatePicker.getValue();
@@ -72,6 +81,7 @@ public class ControllerEditPanel implements Initializable {
     private void refresh() {
         controller.showList(taskManager.getList());
         controller.editButton.setDisable(true);
+        controller.deleteButton.setDisable(true);
     }
 
     @FXML

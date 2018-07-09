@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -72,6 +74,9 @@ public class Controller implements Initializable {
     @FXML
     TableColumn<Task, Integer> idColumn;
 
+    @FXML
+    Button deleteButton;
+
 
 
     private TaskManager taskManager;
@@ -83,6 +88,7 @@ public class Controller implements Initializable {
                 @Override
                 public void onChanged(Change<? extends Task> c) {
                     editButton.setDisable(false);
+                    deleteButton.setDisable(false);
                 }
             };
 
@@ -92,6 +98,7 @@ public class Controller implements Initializable {
         tableView.setEditable(true);
         taskColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         editButton.setDisable(true);
+        deleteButton.setDisable(true);
         final ObservableList<Task> taskTable = tableView.getSelectionModel().getSelectedItems();
         taskTable.addListener(taskSelector);
     }
@@ -179,6 +186,15 @@ public class Controller implements Initializable {
         }catch (IOException x){
             errorAlert(x.getMessage());
         }
+    }
+
+    @FXML
+    public void deleteTask() {
+        taskManager.deleteTask(getSelectedTask());
+        showList(taskManager.getList());
+        deleteButton.setDisable(true);
+        editButton.setDisable(true);
+
     }
 
     private Task getSelectedTask() {

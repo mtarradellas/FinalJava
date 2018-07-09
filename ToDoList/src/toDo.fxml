@@ -49,5 +49,6 @@
       </MenuBar>
       <Button fx:id="listAll" layoutX="232.0" layoutY="510.0" mnemonicParsing="false" onAction="#showAllTasks" prefHeight="25.0" prefWidth="83.0" text="List All" />
       <Button fx:id="editButton" layoutX="531.0" layoutY="510.0" mnemonicParsing="false" onAction="#editTask" text="Edit Task" />
+      <Button fx:id="deleteButton" layoutX="435.0" layoutY="510.0" mnemonicParsing="false" onAction="#deleteTask" text="Delete Task" />
     </children>
 </AnchorPane>
