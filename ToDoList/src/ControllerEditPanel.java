@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 
 public class ControllerEditPanel implements Initializable {
 
-
     @FXML
     Button deleteButton;
 
@@ -37,16 +36,13 @@ public class ControllerEditPanel implements Initializable {
     @FXML
     Button cancelButton;
 
-    @FXML
 
     private Task task;
     private TaskManager taskManager;
     private Controller controller;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle){}
 
     public void initTask(Task task, TaskManager taskManager, Controller controller){
         this.task = task;
@@ -54,15 +50,12 @@ public class ControllerEditPanel implements Initializable {
         this.controller = controller;
     }
 
-
     public void complete() {
         taskManager.completeTask(task);
-        //taskManager.printTasks();
     }
 
     @FXML
     public void acceptEdit() {
-
         String newDescription = editDescriptionField.getText();
         if (completedCheckBox.isSelected()) complete();
         if (!newDescription.trim().isEmpty()) task.description = newDescription;
@@ -71,7 +64,6 @@ public class ControllerEditPanel implements Initializable {
             LocalDate newDate = editDatePicker.getValue();
             if (newDate != null) task.date = newDate;
         }
-
         refresh();
         Stage stage = (Stage) acceptButton.getScene().getWindow();
         stage.close();

@@ -19,31 +19,29 @@ public class Task implements Comparable<Task>, Serializable {
         this.description = description;
         this.completed = false;
         this.date = date;
-
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getDate() {
-        if (date != null)
-            return String.format("%tD", date);
-        return "";
+    public String getDateFormat() {
+        if (date != null) {
+            if (date.equals(LocalDate.now())) return "Today";
+            else if (date.equals(LocalDate.now().minusDays(1))) return "Yesterday";
+            else if (date.equals(LocalDate.now().plusDays(1))) return "Tomorrow";
+            else return String.format("%td/%tm/%tY", date, date, date);
+        }
+        return null;
     }
 
     public void complete() {
         completed = true;
     }
 
-    public String getCompleted() {
-        return completed?"  [X]":"  [  ]";
-    }
-
     @Override
     public int compareTo(Task task) {
         return id - task.id;
-
     }
 
     @Override
@@ -54,7 +52,6 @@ public class Task implements Comparable<Task>, Serializable {
             return false;
         Task t = (Task) o;
         return id == t.id;
-
     }
 
     @Override
@@ -64,6 +61,6 @@ public class Task implements Comparable<Task>, Serializable {
 
     @Override
     public String toString() {
-        return String.format(" [%s]  %d  %15s    %s", getCompleted(), id, getDate(), description);
+        return String.format("Completed: %s  Id: %d Due-Date: %s  Description: %s", completed, id, date, description);
     }
 }

@@ -16,31 +16,25 @@ public class TaskManager implements Serializable {
     }
 
 
+
     public void addTask(String desc, LocalDate date){
-
         taskSet.add(new Task(idCounter++, desc, date));
-
     }
 
 
     public List<Task> getList(){
-
         return new ArrayList<>(taskSet);
     }
 
 
     public List<Task> getOverdueList(){
-
-        Predicate<Task> overdue = e -> ((e.date != null) && e.date.compareTo(LocalDate.now()) < 0);
-
+        Predicate<Task> overdue = t -> ((t.date != null) && t.date.isBefore(LocalDate.now()));
         return taskSet.stream().filter(overdue).collect(Collectors.toList());
     }
 
 
     public List<Task> getTodayList(){
-
-        Predicate<Task> today = e -> ((e.date != null) && e.date.compareTo(LocalDate.now()) == 0);
-
+        Predicate<Task> today = t -> ((t.date != null) && t.date.equals(LocalDate.now()));
         return taskSet.stream().filter(today).collect(Collectors.toList());
     }
 
@@ -58,31 +52,13 @@ public class TaskManager implements Serializable {
 
    //returns a list of tasks with matching description
     public List<Task> search(String desc){
-
-
-        Predicate<Task> matchDesc = e -> (e.description.toLowerCase().contains(desc.toLowerCase()));
-
+        Predicate<Task> matchDesc = t -> (t.description.toLowerCase().contains(desc.toLowerCase()));
         return taskSet.stream().filter(matchDesc).collect(Collectors.toList());
-
     }
 
     //Removes completed tasks from taskSet
     public void archive(){
-        Iterator<Task> it = taskSet.iterator();
-
-        //me estoy adelantando uno?? chequear el primero
-
-        while (it.hasNext()){
-            Task t = it.next();
-            if(t.completed)
-                it.remove();
-        }
-    }
-
-
-    public void editTask(Task t, LocalDate date, String desc, boolean completed){
-
-
+        taskSet.removeIf(t -> t.completed);
     }
 
     public void printTasks(){

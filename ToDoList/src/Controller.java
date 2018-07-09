@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-
     @FXML
     Button addButton;
 
@@ -93,48 +92,34 @@ public class Controller implements Initializable {
         tableView.setEditable(true);
         taskColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         editButton.setDisable(true);
-
         final ObservableList<Task> taskTable = tableView.getSelectionModel().getSelectedItems();
         taskTable.addListener(taskSelector);
     }
 
     @FXML
     public void addTask(Event e){
-
         String desc = descriptionForAdd.getText();
-
         if(desc.trim().isEmpty()){
-
             errorAlert("Description cannot be null");
         }
         else {
-
             taskManager.addTask(desc, datePicker.getValue());
-
             refresh();
-
             showList(taskManager.getList());
         }
-
     }
 
     @FXML
     public void archiveTasks(Event e){
-
         taskManager.archive();
-
         showList(taskManager.getList());
-
     }
 
     @FXML
     public void searchTasks(Event e){
-
         List<Task> l = taskManager.search(descriptionForSearch.getText());
-
         if(l.isEmpty()){
             informationAlert("There are no tasks matching this description");
-
         }
         else showList(l);
         refresh();
@@ -142,48 +127,36 @@ public class Controller implements Initializable {
 
     @FXML
     public void showAllTasks(Event e){
-
         showList(taskManager.getList());
-        refresh();
     }
 
     @FXML
     public void showOverdue(Event e){
-
         showList(taskManager.getOverdueList());
-
     }
 
     @FXML
     public void showToday(Event e){
-
         showList(taskManager.getTodayList());
     }
 
     private void refresh(){
-
         datePicker.setValue(null);
         descriptionForAdd.clear();
         descriptionForSearch.clear();
     }
 
     protected void showList(List<Task> l){
-
         taskColumn.setCellValueFactory(cellD -> new SimpleStringProperty(cellD.getValue().description));
         idColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().id));
-        dateColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().getDate()));
-        statusColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().getCompleted()));
-
-
+        dateColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().getDateFormat()));
+        statusColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().completed?"[X]":"[ ]"));
         listFx.clear();
-
         listFx.addAll(l);
-
         tableView.setItems(listFx);
     }
 
     public void changeTaskDescription(TableColumn.CellEditEvent editedCell) {
-
         Task taskSelected = tableView.getSelectionModel().getSelectedItem();
         String newDescription = editedCell.getNewValue().toString();
         if (newDescription.trim().isEmpty()) errorAlert("Description cannot be null");
@@ -192,27 +165,20 @@ public class Controller implements Initializable {
 
     @FXML
     public void editTask() {
-
-
-            Stage stage = new Stage();
-            try {
-
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("EditPanel.fxml"));
-                Parent parent = loader.load();
-
-                Scene scene = new Scene(parent);
-
-                ControllerEditPanel controller = loader.getController();
-
-                controller.initTask(getSelectedTask(), taskManager, this);
-
-
-                stage.setTitle("To-Do");
-                stage.setScene(scene);
-                stage.show();
-            }catch (IOException x){}
-
+        Stage stage = new Stage();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("EditPanel.fxml"));
+            Parent parent = loader.load();
+            ControllerEditPanel controller = loader.getController();
+            controller.initTask(getSelectedTask(), taskManager, this);
+            Scene scene = new Scene(parent);
+            stage.setTitle("To-Do");
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException x){
+            errorAlert(x.getMessage());
+        }
     }
 
     private Task getSelectedTask() {
@@ -224,68 +190,47 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void saveFile(Event event){
-
+    public void saveFile(Event e){
         FileChooser fileChooser = new FileChooser();
         Stage stage2 = new Stage();
         try{
-
             File toSaveFile = fileChooser.showSaveDialog(stage2);
-
             saveFile(toSaveFile);
-
-        }catch (Exception e){
-
+        }catch (Exception ex){
             errorAlert("File could not be saved");
-
         }
     }
 
     @FXML
-    private void loadFile(Event event) {
+    private void loadFile(Event e) {
         FileChooser fileChooser = new FileChooser();
         Stage stage2 = new Stage();
-
         try{
-
             File toLoadFile = fileChooser.showOpenDialog(stage2);
-
             loadFile(toLoadFile);
-
-        }catch (Exception e){
-
+        }catch (Exception ex){
             errorAlert("File could not be loaded");
         }
-
         showList(taskManager.getList());
     }
 
     private void loadFile(File file) {
         try{
-
             FileInputStream f = new FileInputStream(file);
             ObjectInputStream o = new ObjectInputStream(f);
-
             taskManager = (TaskManager) o.readObject();
-
-
         }catch (Exception e) {
-
             errorAlert("File could not be loaded");
         }
     }
 
     private void saveFile(File file) {
         try {
-
             FileOutputStream f = new FileOutputStream(file);
             ObjectOutputStream o = new ObjectOutputStream(f);
-
             o.writeObject(taskManager);
-
             o.close();
             f.close();
-
         }catch (FileNotFoundException e) {
             errorAlert("File not found");
         }catch (IOException e) {
