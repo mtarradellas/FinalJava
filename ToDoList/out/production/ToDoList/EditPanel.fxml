@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="197.0" prefWidth="433.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerEditPanel">
+    <children>
+        <Button fx:id="deleteButton" layoutX="22.0" layoutY="159.0" mnemonicParsing="false" onAction="#deleteTask" prefWidth="70.0" text="Delete" />
+        <DatePicker fx:id="editDatePicker" layoutX="20.0" layoutY="24.0" prefHeight="26.0" prefWidth="171.0" promptText="Select date here..." />
+        <TextField fx:id="editDescriptionField" layoutX="19.0" layoutY="62.0" prefHeight="26.0" prefWidth="286.0" promptText="Type description here..." />
+        <Separator layoutX="2.0" layoutY="150.0" prefHeight="3.0" prefWidth="433.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="150.0" />
+        <CheckBox fx:id="noDateCheckBox" layoutX="215.0" layoutY="27.0" mnemonicParsing="false" text="No Date" />
+        <CheckBox fx:id="completedCheckBox" layoutX="20.0" layoutY="106.0" mnemonicParsing="false" text="Completed" />
+        <Button fx:id="acceptButton" layoutX="273.0" layoutY="157.0" mnemonicParsing="false" onAction="#acceptEdit" text="Accept" />
+        <Button fx:id="cancelButton" layoutX="353.0" layoutY="157.0" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+    </children>
+</AnchorPane>
