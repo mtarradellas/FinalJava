@@ -1,13 +1,9 @@
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -38,25 +34,20 @@ public class ControllerEditPanel implements Initializable {
 
     private Task task;
     private TaskManager taskManager;
-    private Controller controller;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){}
 
-    public void initTask(Task task, TaskManager taskManager, Controller controller){
+    public void initController(Task task, TaskManager taskManager){
         this.task = task;
         this.taskManager = taskManager;
-        this.controller = controller;
-    }
-
-    public void complete() {
-        taskManager.completeTask(task);
+        completedCheckBox.setSelected(task.completed);
     }
 
     @FXML
     public void acceptEdit() {
         String newDescription = editDescriptionField.getText();
-        if (completedCheckBox.isSelected()) complete();
+        task.completed = completedCheckBox.isSelected();
         if (!newDescription.trim().isEmpty()) task.description = newDescription;
         else {
             if (!newDescription.isEmpty()) {
@@ -73,7 +64,6 @@ public class ControllerEditPanel implements Initializable {
             LocalDate newDate = editDatePicker.getValue();
             if (newDate != null) task.date = newDate;
         }
-        controller.showList(taskManager.getList());
         finishEdit();
     }
 
@@ -85,8 +75,6 @@ public class ControllerEditPanel implements Initializable {
 
     @FXML
     public void finishEdit() {
-
-        controller.showList(taskManager.getList());
         Stage stage = (Stage) acceptButton.getScene().getWindow();
         stage.close();
     }

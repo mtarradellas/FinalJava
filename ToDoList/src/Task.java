@@ -36,7 +36,7 @@ public class Task implements Comparable<Task>, Serializable {
     }
 
     public void complete() {
-        completed = true;
+        completed = !completed;
     }
 
     @Override

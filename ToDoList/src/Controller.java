@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,6 +65,12 @@ public class Controller implements Initializable {
     Button editButton;
 
     @FXML
+    Button deleteButton;
+
+    @FXML
+    Button completeButton;
+
+    @FXML
     TableColumn<Task, String> taskColumn;
 
     @FXML
@@ -77,11 +82,6 @@ public class Controller implements Initializable {
     @FXML
     TableColumn<Task, Integer> idColumn;
 
-    @FXML
-    Button deleteButton;
-
-    @FXML
-    Button completeButton;
 
 
 
@@ -182,7 +182,7 @@ public class Controller implements Initializable {
             loader.setLocation(getClass().getResource("EditPanel.fxml"));
             Parent parent = loader.load();
             ControllerEditPanel controller = loader.getController();
-            controller.initTask(getSelectedTask(), taskManager, this);
+            controller.initController(getSelectedTask(), taskManager);
             Scene scene = new Scene(parent);
             stage.setTitle("To-Do");
             stage.setScene(scene);
@@ -193,6 +193,7 @@ public class Controller implements Initializable {
             errorAlert(x.getMessage());
         }
         setDisableButtons(true);
+        showList(taskManager.getList());
     }
 
     @FXML
@@ -216,10 +217,8 @@ public class Controller implements Initializable {
     }
 
     private Task getSelectedTask() {
-        if(tableView != null) {
-            List<Task> l = tableView.getSelectionModel().getSelectedItems();
-            if(l.size()==1) return l.get(0);
-        }
+        List<Task> l = tableView.getSelectionModel().getSelectedItems();
+        if(l.size()==1) return l.get(0);
         return null;
     }
 
@@ -232,16 +231,16 @@ public class Controller implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()) {
             if (result.get() == ButtonType.OK) {
-                loadFile();
+                chooseFile();
             }
         }
     }
 
-    private void loadFile() {
+    private void chooseFile() {
         FileChooser fileChooser = new FileChooser();
-        Stage stage2 = new Stage();
+        Stage stage = new Stage();
         try{
-            File toLoadFile = fileChooser.showOpenDialog(stage2);
+            File toLoadFile = fileChooser.showOpenDialog(stage);
             loadFile(toLoadFile);
         }catch (Exception ex){
             errorAlert("File could not be loaded");
@@ -262,9 +261,9 @@ public class Controller implements Initializable {
     @FXML
     public void saveFile(Event e){
         FileChooser fileChooser = new FileChooser();
-        Stage stage2 = new Stage();
+        Stage stage = new Stage();
         try{
-            File toSaveFile = fileChooser.showSaveDialog(stage2);
+            File toSaveFile = fileChooser.showSaveDialog(stage);
             saveFile(toSaveFile);
         }catch (Exception ex){
             errorAlert("File could not be saved");

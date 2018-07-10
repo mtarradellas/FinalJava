@@ -60,10 +60,4 @@ public class TaskManager implements Serializable {
     public void archive(){
         taskSet.removeIf(t -> t.completed);
     }
-
-    public void printTasks(){
-        for(Task t : taskSet)
-            System.out.println(t);
-    }
-
 }
