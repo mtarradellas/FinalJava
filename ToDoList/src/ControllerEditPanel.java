@@ -73,26 +73,20 @@ public class ControllerEditPanel implements Initializable {
             LocalDate newDate = editDatePicker.getValue();
             if (newDate != null) task.date = newDate;
         }
-        refresh();
-        Stage stage = (Stage) acceptButton.getScene().getWindow();
-        stage.close();
-    }
-
-    private void refresh() {
         controller.showList(taskManager.getList());
-        controller.editButton.setDisable(true);
-        controller.deleteButton.setDisable(true);
+        finishEdit();
     }
 
     @FXML
     public void deleteTask() {
         taskManager.deleteTask(task);
-        refresh();
-        cancelEdit();
+        finishEdit();
     }
 
     @FXML
-    public void cancelEdit() {
+    public void finishEdit() {
+
+        controller.showList(taskManager.getList());
         Stage stage = (Stage) acceptButton.getScene().getWindow();
         stage.close();
     }

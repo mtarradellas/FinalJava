@@ -14,15 +14,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -81,6 +80,9 @@ public class Controller implements Initializable {
     @FXML
     Button deleteButton;
 
+    @FXML
+    Button completeButton;
+
 
 
     private TaskManager taskManager;
@@ -91,8 +93,7 @@ public class Controller implements Initializable {
             new ListChangeListener<Task>() {
                 @Override
                 public void onChanged(Change<? extends Task> c) {
-                    editButton.setDisable(false);
-                    deleteButton.setDisable(false);
+                    setDisableButtons(false);
                 }
             };
 
@@ -101,8 +102,7 @@ public class Controller implements Initializable {
         taskManager = new TaskManager();
         tableView.setEditable(true);
         taskColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        editButton.setDisable(true);
-        deleteButton.setDisable(true);
+        setDisableButtons(true);
         final ObservableList<Task> taskTable = tableView.getSelectionModel().getSelectedItems();
         taskTable.addListener(taskSelector);
     }
@@ -161,7 +161,7 @@ public class Controller implements Initializable {
         taskColumn.setCellValueFactory(cellD -> new SimpleStringProperty(cellD.getValue().description));
         idColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().id));
         dateColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().getDateFormat()));
-        statusColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().completed?"[X]":"[ ]"));
+        statusColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().completed?"[X]":"[  ]"));
         listFx.clear();
         listFx.addAll(l);
         tableView.setItems(listFx);
@@ -186,19 +186,33 @@ public class Controller implements Initializable {
             Scene scene = new Scene(parent);
             stage.setTitle("To-Do");
             stage.setScene(scene);
-            stage.show();
+            stage.setAlwaysOnTop(true);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
         }catch (IOException x){
             errorAlert(x.getMessage());
         }
+        setDisableButtons(true);
     }
 
     @FXML
     public void deleteTask() {
         taskManager.deleteTask(getSelectedTask());
         showList(taskManager.getList());
-        deleteButton.setDisable(true);
-        editButton.setDisable(true);
+        setDisableButtons(true);
+    }
 
+    @FXML
+    public void completeTask(Event e) {
+        taskManager.completeTask(getSelectedTask());
+        showList(taskManager.getList());
+        setDisableButtons(true);
+    }
+
+    protected void setDisableButtons(boolean state) {
+        deleteButton.setDisable(state);
+        completeButton.setDisable(state);
+        editButton.setDisable(state);
     }
 
     private Task getSelectedTask() {
@@ -210,19 +224,20 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void saveFile(Event e){
-        FileChooser fileChooser = new FileChooser();
-        Stage stage2 = new Stage();
-        try{
-            File toSaveFile = fileChooser.showSaveDialog(stage2);
-            saveFile(toSaveFile);
-        }catch (Exception ex){
-            errorAlert("File could not be saved");
+    private void confirmLoad(Event e) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Load File");
+        alert.setHeaderText("Confirmation");
+        alert.setContentText("Loading a new file will delete all unsaved data");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent()) {
+            if (result.get() == ButtonType.OK) {
+                loadFile();
+            }
         }
     }
 
-    @FXML
-    private void loadFile(Event e) {
+    private void loadFile() {
         FileChooser fileChooser = new FileChooser();
         Stage stage2 = new Stage();
         try{
@@ -241,6 +256,18 @@ public class Controller implements Initializable {
             taskManager = (TaskManager) o.readObject();
         }catch (Exception e) {
             errorAlert("File could not be loaded");
+        }
+    }
+
+    @FXML
+    public void saveFile(Event e){
+        FileChooser fileChooser = new FileChooser();
+        Stage stage2 = new Stage();
+        try{
+            File toSaveFile = fileChooser.showSaveDialog(stage2);
+            saveFile(toSaveFile);
+        }catch (Exception ex){
+            errorAlert("File could not be saved");
         }
     }
 
@@ -264,6 +291,7 @@ public class Controller implements Initializable {
         a.setHeaderText("");
         Button okButton = (Button) a.getDialogPane().lookupButton( ButtonType.OK);
         okButton.setText("Accept");
+        a.initModality(Modality.APPLICATION_MODAL);
         a.show();
     }
 
@@ -273,6 +301,7 @@ public class Controller implements Initializable {
         a.setHeaderText("");
         Button okButton = (Button) a.getDialogPane().lookupButton( ButtonType.OK);
         okButton.setText("Accept");
+        a.initModality(Modality.APPLICATION_MODAL);
         a.show();
     }
 }

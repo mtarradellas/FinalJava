@@ -19,6 +19,6 @@
         <CheckBox fx:id="noDateCheckBox" layoutX="215.0" layoutY="27.0" mnemonicParsing="false" text="No Date" />
         <CheckBox fx:id="completedCheckBox" layoutX="20.0" layoutY="106.0" mnemonicParsing="false" text="Completed" />
         <Button fx:id="acceptButton" layoutX="273.0" layoutY="157.0" mnemonicParsing="false" onAction="#acceptEdit" text="Accept" />
-        <Button fx:id="cancelButton" layoutX="353.0" layoutY="157.0" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+        <Button fx:id="cancelButton" layoutX="353.0" layoutY="157.0" mnemonicParsing="false" onAction="#finishEdit" text="Cancel" />
     </children>
 </AnchorPane>
