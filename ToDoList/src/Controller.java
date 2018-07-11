@@ -35,7 +35,7 @@ public class Controller implements Initializable {
     Button archiveButton;
 
     @FXML
-    Button listAll;
+    Button listAllButton;
 
     @FXML
     Button listOverdueButton;
@@ -79,11 +79,6 @@ public class Controller implements Initializable {
     @FXML
     TableColumn<Task, String> statusColumn;
 
-    @FXML
-    TableColumn<Task, Integer> idColumn;
-
-
-
 
     private TaskManager taskManager;
 
@@ -91,7 +86,7 @@ public class Controller implements Initializable {
     private ObservableList<Task> listFx = FXCollections.observableArrayList();
 
     //Listener to select tasks from table rows
-    private final ListChangeListener<Task> taskSelector =
+    private final ListChangeListener<Task> TASK_SELECTOR =
             new ListChangeListener<Task>() {
                 @Override
                 public void onChanged(Change<? extends Task> c) {
@@ -106,7 +101,7 @@ public class Controller implements Initializable {
         taskColumn.setCellFactory(TextFieldTableCell.forTableColumn());     //Allows user to edit task description directly from table
         setDisableButtons(true);        //Program starts with Edit, Delete and Complete buttons disabled
         final ObservableList<Task> taskTable = tableView.getSelectionModel().getSelectedItems();
-        taskTable.addListener(taskSelector);
+        taskTable.addListener(TASK_SELECTOR);
     }
 
     //Adds task to list if not empty
@@ -169,7 +164,6 @@ public class Controller implements Initializable {
     //Creates observable list from computed list and shows obtained data on table
     private void showList(List<Task> l){
         taskColumn.setCellValueFactory(cellD -> new SimpleStringProperty(cellD.getValue().description));
-        idColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().id));
         dateColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().getDateFormat()));
         statusColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().completed?"[X]":"[  ]"));
         listFx.clear();

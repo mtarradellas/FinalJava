@@ -28,9 +28,8 @@
         <TableView fx:id="tableView" layoutX="7.0" layoutY="154.0" prefHeight="330.0" prefWidth="617.0">
             <columns>
             <TableColumn fx:id="statusColumn" prefWidth="50.0" resizable="false" text="Status" />
-            <TableColumn fx:id="idColumn" prefWidth="59.0" resizable="false" text="ID" />
             <TableColumn fx:id="dateColumn" prefWidth="119.0" resizable="false" text="Due-Date" />
-                <TableColumn fx:id="taskColumn" onEditCommit="#changeTaskDescription" prefWidth="388.0" resizable="false" text="Tasks" />
+                <TableColumn fx:id="taskColumn" onEditCommit="#changeTaskDescription" prefWidth="446.0" resizable="false" text="Tasks" />
             </columns>
         </TableView>
       <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="630.0">
@@ -43,7 +42,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button fx:id="listAll" layoutX="219.0" layoutY="502.0" mnemonicParsing="false" onAction="#showAllTasks" prefHeight="25.0" prefWidth="83.0" text="List All" />
+      <Button fx:id="listAllButton" layoutX="219.0" layoutY="502.0" mnemonicParsing="false" onAction="#showAllTasks" prefHeight="25.0" prefWidth="83.0" text="List All" />
       <Button fx:id="editButton" layoutX="549.0" layoutY="502.0" mnemonicParsing="false" onAction="#editTask" prefHeight="25.0" prefWidth="68.0" text="Edit" />
       <Button fx:id="deleteButton" layoutX="467.0" layoutY="502.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="25.0" prefWidth="68.0" text="Delete" />
       <Button fx:id="completeButton" layoutX="384.0" layoutY="502.0" mnemonicParsing="false" onAction="#completeTask" text="Complete" />

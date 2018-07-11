@@ -17,14 +17,16 @@ public class Task implements Comparable<Task>, Serializable {
     public Task(int id, String description, LocalDate date){
         this.id = id;
         this.description = description;
-        this.completed = false;
+        this.completed = false;     //Tasks start as not completed
         this.date = date;
     }
 
+    //Modifies task description
     public void setDescription(String description) {
         this.description = description;
     }
 
+    //Returns date format as DD/MM/YYYY unless date is null, then it returns null
     public String getDateFormat() {
         if (date != null) {
             if (date.equals(LocalDate.now())) return "Today";
@@ -35,15 +37,18 @@ public class Task implements Comparable<Task>, Serializable {
         return null;
     }
 
+    //Completes or de-completes task
     public void complete() {
         completed = !completed;
     }
 
+    //Natural order set to tasks id
     @Override
     public int compareTo(Task task) {
         return id - task.id;
     }
 
+    //Task equality based only on id
     @Override
     public boolean equals(Object o){
         if(this == o)
