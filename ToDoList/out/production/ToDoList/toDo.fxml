@@ -37,7 +37,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem fx:id="saveFileButton" mnemonicParsing="false" onAction="#saveFile" text="Save File" />
+                  <MenuItem fx:id="saveFileButton" mnemonicParsing="false" onAction="#chooseSaveFile" text="Save File" />
                   <MenuItem fx:id="loadFileButton" mnemonicParsing="false" onAction="#confirmLoad" text="Load File" />
             </items>
           </Menu>

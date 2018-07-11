@@ -3,6 +3,7 @@ import java.util.Comparator;
 
 public class TaskDateComparator implements Comparator<Task>, Serializable {
 
+    //Order first by date, then id, and completed tasks always last
     @Override
     public int compare(Task t1, Task t2) {
         if (Boolean.compare(t1.completed, t2.completed) == 0) {

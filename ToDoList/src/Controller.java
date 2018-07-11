@@ -87,13 +87,15 @@ public class Controller implements Initializable {
 
     private TaskManager taskManager;
 
+    //Observable task list to show on table
     private ObservableList<Task> listFx = FXCollections.observableArrayList();
 
+    //Listener to select tasks from table rows
     private final ListChangeListener<Task> taskSelector =
             new ListChangeListener<Task>() {
                 @Override
                 public void onChanged(Change<? extends Task> c) {
-                    setDisableButtons(false);
+                    setDisableButtons(false);   //Enables Edit, Delete and Complete buttons after a task is selected
                 }
             };
 
@@ -101,12 +103,13 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         taskManager = new TaskManager();
         tableView.setEditable(true);
-        taskColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        setDisableButtons(true);
+        taskColumn.setCellFactory(TextFieldTableCell.forTableColumn());     //Allows user to edit task description directly from table
+        setDisableButtons(true);        //Program starts with Edit, Delete and Complete buttons disabled
         final ObservableList<Task> taskTable = tableView.getSelectionModel().getSelectedItems();
         taskTable.addListener(taskSelector);
     }
 
+    //Adds task to list if not empty
     @FXML
     public void addTask(Event e){
         String desc = descriptionForAdd.getText();
@@ -120,12 +123,14 @@ public class Controller implements Initializable {
         }
     }
 
+    //Archives completed tasks
     @FXML
     public void archiveTasks(Event e){
         taskManager.archive();
         showList(taskManager.getList());
     }
 
+    //Validates and creates list of tasks including computed key-words
     @FXML
     public void searchTasks(Event e){
         List<Task> l = taskManager.search(descriptionForSearch.getText());
@@ -136,28 +141,33 @@ public class Controller implements Initializable {
         refresh();
     }
 
+    //Shows all created tasks on table
     @FXML
     public void showAllTasks(Event e){
         showList(taskManager.getList());
     }
 
+    //Shows tasks with due-date previous to current date on table
     @FXML
     public void showOverdue(Event e){
         showList(taskManager.getOverdueList());
     }
 
+    //Shows tasks with due-date equal to current date on table
     @FXML
     public void showToday(Event e){
         showList(taskManager.getTodayList());
     }
 
+    //Deletes any text on date picker, description text box or search text box
     private void refresh(){
         datePicker.setValue(null);
         descriptionForAdd.clear();
         descriptionForSearch.clear();
     }
 
-    protected void showList(List<Task> l){
+    //Creates observable list from computed list and shows obtained data on table
+    private void showList(List<Task> l){
         taskColumn.setCellValueFactory(cellD -> new SimpleStringProperty(cellD.getValue().description));
         idColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().id));
         dateColumn.setCellValueFactory(cellID -> new SimpleObjectProperty<>(cellID.getValue().getDateFormat()));
@@ -167,35 +177,42 @@ public class Controller implements Initializable {
         tableView.setItems(listFx);
     }
 
+    //Allows user to modify task description directly from table
     public void changeTaskDescription(TableColumn.CellEditEvent editedCell) {
         Task taskSelected = tableView.getSelectionModel().getSelectedItem();
         String newDescription = editedCell.getNewValue().toString();
         if (newDescription.trim().isEmpty()) errorAlert("Description cannot be null");
         else taskSelected.setDescription(editedCell.getNewValue().toString());
+        setDisableButtons(true);
     }
 
+    //Creates and shows task edition window
     @FXML
     public void editTask() {
         Stage stage = new Stage();
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("EditPanel.fxml"));
-            Parent parent = loader.load();
-            ControllerEditPanel controller = loader.getController();
-            controller.initController(getSelectedTask(), taskManager);
-            Scene scene = new Scene(parent);
-            stage.setTitle("To-Do");
-            stage.setScene(scene);
-            stage.setAlwaysOnTop(true);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        }catch (IOException x){
-            errorAlert(x.getMessage());
+        Task selectedTask = getSelectedTask();
+        if (selectedTask != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("EditPanel.fxml"));
+                Parent parent = loader.load();
+                ControllerEditPanel controller = loader.getController();
+                controller.initController(selectedTask, taskManager);  //Gives the new window controller access to taskManager and editing task
+                Scene scene = new Scene(parent);
+                stage.setTitle("Edit");
+                stage.setScene(scene);
+                stage.setAlwaysOnTop(true);     //Edition window appears always over previous window
+                stage.initModality(Modality.APPLICATION_MODAL);     //Prevents user from accessing application window before finishing task edition
+                stage.showAndWait();        //Waits until edition is finished to disable buttons and refresh tasks table
+            } catch (IOException x) {
+                errorAlert(x.getMessage());
+            }
         }
         setDisableButtons(true);
         showList(taskManager.getList());
     }
 
+    //Deletes selected task
     @FXML
     public void deleteTask() {
         taskManager.deleteTask(getSelectedTask());
@@ -203,27 +220,36 @@ public class Controller implements Initializable {
         setDisableButtons(true);
     }
 
+    //Completes selected task
     @FXML
     public void completeTask(Event e) {
-        taskManager.completeTask(getSelectedTask());
-        showList(taskManager.getList());
+        Task selectedTask = getSelectedTask();
+        if (selectedTask != null) {
+            taskManager.completeTask(selectedTask);
+            showList(taskManager.getList());
+        }
         setDisableButtons(true);
     }
 
-    protected void setDisableButtons(boolean state) {
+    //Sets Edit, Delete and Complete buttons so that they are only clickable after user selected a task
+    private void setDisableButtons(boolean state) {
         deleteButton.setDisable(state);
         completeButton.setDisable(state);
         editButton.setDisable(state);
     }
 
+    //Returns user selected task
     private Task getSelectedTask() {
+        Task selectedTask = null;
         List<Task> l = tableView.getSelectionModel().getSelectedItems();
-        if(l.size()==1) return l.get(0);
-        return null;
+        if(l.size()==1) selectedTask = l.get(0);
+        if (selectedTask == null) errorAlert("No task selected");
+        return selectedTask;
     }
 
+    //Opens confirmation alert for loading new file
     @FXML
-    private void confirmLoad(Event e) {
+    public void confirmLoad(Event e) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Load File");
         alert.setHeaderText("Confirmation");
@@ -231,12 +257,14 @@ public class Controller implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent()) {
             if (result.get() == ButtonType.OK) {
-                chooseFile();
+                chooseLoadFile();
             }
         }
     }
 
-    private void chooseFile() {
+
+    //Opens file selector for loading
+    private void chooseLoadFile() {
         FileChooser fileChooser = new FileChooser();
         Stage stage = new Stage();
         try{
@@ -248,6 +276,7 @@ public class Controller implements Initializable {
         showList(taskManager.getList());
     }
 
+    //Loads selected file to application
     private void loadFile(File file) {
         try{
             FileInputStream f = new FileInputStream(file);
@@ -258,8 +287,9 @@ public class Controller implements Initializable {
         }
     }
 
+    //Opens file selector for saving
     @FXML
-    public void saveFile(Event e){
+    public void chooseSaveFile(Event e){
         FileChooser fileChooser = new FileChooser();
         Stage stage = new Stage();
         try{
@@ -270,6 +300,7 @@ public class Controller implements Initializable {
         }
     }
 
+    //Saves application to file selected
     private void saveFile(File file) {
         try {
             FileOutputStream f = new FileOutputStream(file);
@@ -279,28 +310,30 @@ public class Controller implements Initializable {
             f.close();
         }catch (FileNotFoundException e) {
             errorAlert("File not found");
-        }catch (IOException e) {
+        }catch (Exception e) {
             errorAlert("File could not be saved");
         }
     }
 
+    //Shows Error Alert with computed message
     private void errorAlert(String message){
         Alert a = new Alert(Alert.AlertType.ERROR, message);
         a.setTitle("Error");
         a.setHeaderText("");
         Button okButton = (Button) a.getDialogPane().lookupButton( ButtonType.OK);
         okButton.setText("Accept");
-        a.initModality(Modality.APPLICATION_MODAL);
+        a.initModality(Modality.APPLICATION_MODAL);     //Disables application until Alert is closed
         a.show();
     }
 
+    //Shows Information Alert with computed message
     private void informationAlert(String message){
         Alert a = new Alert(Alert.AlertType.INFORMATION, message);
         a.setTitle("Message");
         a.setHeaderText("");
         Button okButton = (Button) a.getDialogPane().lookupButton( ButtonType.OK);
         okButton.setText("Accept");
-        a.initModality(Modality.APPLICATION_MODAL);
+        a.initModality(Modality.APPLICATION_MODAL);     //Disables application until Alert is closed
         a.show();
     }
 }

@@ -38,18 +38,20 @@ public class ControllerEditPanel implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){}
 
+    //Gives controller access to editing task and taskManager
     public void initController(Task task, TaskManager taskManager){
         this.task = task;
         this.taskManager = taskManager;
-        completedCheckBox.setSelected(task.completed);
+        completedCheckBox.setSelected(task.completed);      //Sets completed checkbox according whether task is completed or not
     }
 
+    //Validates and implements task modifications and closes window
     @FXML
     public void acceptEdit() {
         String newDescription = editDescriptionField.getText();
         task.completed = completedCheckBox.isSelected();
         if (!newDescription.trim().isEmpty()) task.description = newDescription;
-        else {
+        else {      //Description remains unaltered, alert appears only if user typed blank spaces
             if (!newDescription.isEmpty()) {
                 Alert a = new Alert(Alert.AlertType.INFORMATION, "Description cannot be empty");
                 a.setTitle("Error");
@@ -62,19 +64,21 @@ public class ControllerEditPanel implements Initializable {
         if (noDateCheckBox.isSelected()) task.date = null;
         else {
             LocalDate newDate = editDatePicker.getValue();
-            if (newDate != null) task.date = newDate;
+            if (newDate != null) task.date = newDate;       //Else Due-Date remains unaltered
         }
         finishEdit();
     }
 
+    //Deletes selected task
     @FXML
     public void deleteTask() {
         taskManager.deleteTask(task);
         finishEdit();
     }
 
+    //Closes edition window
     @FXML
-    public void finishEdit() {
+    private void finishEdit() {
         Stage stage = (Stage) acceptButton.getScene().getWindow();
         stage.close();
     }
