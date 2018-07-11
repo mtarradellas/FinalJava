@@ -178,6 +178,7 @@ public class Controller implements Initializable {
         if (newDescription.trim().isEmpty()) errorAlert("Description cannot be null");
         else taskSelected.setDescription(editedCell.getNewValue().toString());
         setDisableButtons(true);
+        showList(taskManager.getList());
     }
 
     //Creates and shows task edition window
