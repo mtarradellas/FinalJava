@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="576e548b-7023-404d-b9fd-9d29a4d361c9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ToDoList/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ToDoList/Controller$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ToDoList/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ToDoList/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ToDoList/ControllerEditPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ToDoList/ControllerEditPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ControllerEditPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ControllerEditPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="576e548b-7023-404d-b9fd-9d29a4d361c9" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -249,12 +240,12 @@
       <updated>1531153410191</updated>
       <workItem from="1531153411794" duration="19756000" />
       <workItem from="1531234957132" duration="14112000" />
-      <workItem from="1531252931058" duration="4838000" />
+      <workItem from="1531252931058" duration="5231000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38706000" />
+    <option name="totallyTimeSpent" value="39099000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
